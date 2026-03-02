@@ -116,6 +116,18 @@ Sysmon events were verified via the `Microsoft-Windows-Sysmon/Operational` event
 ![Sysmon Operational Log](screenshots/sysmon-operational.png)
 
 ---
+
+### Dataflow Architecture
+
+How the Data Flow Works (Architecture Explanation):
+- Sysmon generates enhanced logs
+- Windows stores them in Event Viewer
+- Universal Forwarder reads Event Logs
+- Forwarder sends logs over TCP 9997 (default Splunk TCP port)
+- Splunk Enterprise receives
+- Splunk indexes data in main
+- You search and create detections
+
 ## Intentional Misconfigurations
 
 The following misconfigurations were intentionally introduced to support later attack simulations.
