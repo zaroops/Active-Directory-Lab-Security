@@ -2,7 +2,7 @@
 
 ## Objective
 
-The goal of Phase 0 is to build a **realistic Active Directory (AD) environment** with proper logging and **intentional, explainable misconfigurations**. This phase establishes a clean baseline before any attacks are performed and mirrors common weaknesses found in small-to-mid sized enterprise environments.
+The goal of Phase 0 in this project is to build a **realistic Active Directory (AD) environment** with proper logging and **intentional, explainable misconfigurations**. This phase establishes a clean baseline before any attacks are performed and mirrors common weaknesses found in small-to-mid sized enterprise environments. This includes My Active Directory Splunk + Sysmon SIEM SOC Simulation lab (see active directory lab setup repository)
 
 No offensive tooling is used during this phase.
 
@@ -31,7 +31,7 @@ homelb.local
 └── IT
 
 
-This OU structure follows basic Active Directory hygiene and supports delegated administration.
+This OU structure follows basic Active Directory hygiene and supports delegated administration. It supports the structure necessary for my lab setup as well as possible attack vectors within offensive tooling phases of this lab. 
 
 ---
 
@@ -56,7 +56,7 @@ This OU structure follows basic Active Directory hygiene and supports delegated 
 | Sales | Sales users |
 | Workstation-Admins | Local admin access on workstations |
 
-Group-based permissions are used instead of assigning rights directly to users, reflecting real-world best practices.
+Group-based permissions are used instead of assigning rights directly to users, reflecting real-world best practices. Individual user permission assignment is defined as unhealthy and an attack-prone business practice.
 
 ---
 
@@ -64,36 +64,25 @@ Group-based permissions are used instead of assigning rights directly to users, 
 
 ## Logging & Monitoring Setup
 
-To provide centralized visibility and detection capability, Sysmon and Splunk were deployed across the environment prior to any attack activity.
-
-### Sysmon
-Sysmon was installed on both the Domain Controller and the Windows 10 workstation using a hardened configuration (SwiftOnSecurity). This enabled detailed telemetry including:
-
-- Process creation
-- Network connections
-- LSASS access attempts
-- Privilege escalation activity
-
-Sysmon events were verified via the `Microsoft-Windows-Sysmon/Operational` event log.
-
-![Sysmon Operational Log](screenshots/sysmon-operational.png)
-
----
+To provide centralized visibility and detection capability, a SIEM had to be set up for accurate log ingestion. Sysmon and Splunk were deployed across the environment prior to any attack activity.
 
 ### Splunk
-Splunk Enterprise (Free) was deployed as the central log aggregation platform. Splunk Universal Forwarders were installed on both Windows systems and configured to forward:
+Splunk Enterprise (Free) was deployed as the central log aggregation platform as my choice of SIEM for this enterprise lab setup. In shorter terms, Splunk turns raw data into digestable intelligence logs. Splunk does the following:
+- Collects logs from multiple machines
+- Indexes and stores them
+- Makes them searchable
+- Allows detection engineering
+- Enables dashboards, alerts, and investigations
+
+Splunk Universal Forwarders were installed on both Windows systems and configured to forward:
 
 - Windows Security logs
 - Sysmon logs
 - PowerShell operational logs
 
-Log ingestion was validated prior to attacks to establish a clean baseline.
+The purpose of Splunk Universal Forwarder was that of an enterprise level log aggregator. It collects local logs (Event Viewer, Sysmon, PowerShell, etc.) and forwards them to Splunk Enterprise. Log ingestion was validated prior to attacks to establish a clean baseline.
 
 ![Splunk Sysmon Logs](screenshots/splunk-sysmon-logs.png)
-
----
-
-### Splunk
 
 Splunk Universal Forwarder was installed on:
 - Domain Controller
@@ -108,6 +97,25 @@ This ensures visibility **before** any attacks occur.
 
 ---
 
+### Sysmon
+Sysmon was installed on both the Domain Controller and the Windows 10 workstation using a hardened configuration (SwiftOnSecurity). The purpose of Sysmon is to give me EDR level detection via logs on windows processes. Windows logs are generally very limited in their information, so his enabled detailed telemetry including:
+
+- Process creation
+- Network connections
+- LSASS access attempts
+- Privilege escalation activity
+- Process creation (Event ID 1)
+- Network connections (Event ID 3)
+- File creation (Event ID 11)
+- Registry modifications
+- Parent/child process relationships
+- CMD arguments
+
+Sysmon events were verified via the `Microsoft-Windows-Sysmon/Operational` event log.
+
+![Sysmon Operational Log](screenshots/sysmon-operational.png)
+
+---
 ## Intentional Misconfigurations
 
 The following misconfigurations were intentionally introduced to support later attack simulations.
