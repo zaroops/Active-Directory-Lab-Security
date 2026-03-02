@@ -168,12 +168,12 @@ Splunk confirmed receiving Security and Sysmon logs
 
 User and group memberships validated
 
-Phase 0 Outcome
+### Phase 0 Outcome
 
 At the completion of Phase 0:
-- The Active Directory domain is fully functional
+- The Active Directory domain is fully functional. Windows 10 + Windows Server 2022 (Splunk Enterprise + Sysmon) + Kali Linux on a VLAN.
 - Logging and monitoring are in place
 - Misconfigurations are present but controlled
-- The environment is prepared for enumeration and attack simulation in subsequent phases
+- The environment is prepared for enumeration and attack simulation in subsequent phases.
 
 
