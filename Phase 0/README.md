@@ -67,7 +67,7 @@ Group-based permissions are used instead of assigning rights directly to users, 
 To provide centralized visibility and detection capability, a SIEM had to be set up for accurate log ingestion. Sysmon and Splunk were deployed across the environment prior to any attack activity.
 
 ### Splunk
-Splunk Enterprise (Free) was deployed as the central log aggregation platform as my choice of SIEM for this enterprise lab setup. In shorter terms, Splunk turns raw data into digestable intelligence logs. Splunk does the following:
+Splunk Enterprise (Free) is utilized as the central log aggregation platform as my choice of SIEM for this enterprise lab setup. In shorter terms, Splunk turns raw data into digestable intelligence logs. Splunk does the following:
 - Collects logs from multiple machines
 - Indexes and stores them
 - Makes them searchable
@@ -80,7 +80,7 @@ Splunk Universal Forwarders were installed on both Windows systems and configure
 - Sysmon logs
 - PowerShell operational logs
 
-The purpose of Splunk Universal Forwarder was that of an enterprise level log aggregator. It collects local logs (Event Viewer, Sysmon, PowerShell, etc.) and forwards them to Splunk Enterprise. Log ingestion was validated prior to attacks to establish a clean baseline.
+The purpose of Splunk Universal Forwarder is that of an enterprise level log aggregator. It collects local logs (Event Viewer, Sysmon, PowerShell, etc.) and forwards them to Splunk Enterprise. Log ingestion was validated prior to attacks to establish a clean baseline.
 
 ![Splunk Sysmon Logs](screenshots/splunk-sysmon-logs.png)
 
